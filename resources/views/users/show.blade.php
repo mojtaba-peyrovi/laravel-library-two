@@ -69,7 +69,7 @@
             </div>  <!-- end of created by user -->
 
             <!-- favorites section -->
-                 <h6>Favorites:</h6>
+                 <h6 style="margin-top:50px;">Favorites:</h6>
                  <hr>
                  <div class="row">
                  @foreach($books as $book)    
