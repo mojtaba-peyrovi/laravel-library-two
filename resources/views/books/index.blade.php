@@ -1,4 +1,28 @@
+
 @extends('layouts.master')
+@section('styles')
+<style type="text/css">
+    .section-title{ 
+        font-size: 25px;
+        text-align: center;
+        
+
+} 
+.jumbotron {
+    background: linear-gradient(#006666, #ffff66);
+}
+
+.books-row {
+    background-color: rgb(242, 242, 242);
+    border-radius: 5px;
+    padding-bottom: 20px;
+    box-shadow: -11px 19px 38px -18px rgba(122,116,122,0.75);
+}
+
+    
+
+</style>
+@endsection
 @section('title')
     Books
 @endsection
@@ -46,80 +70,27 @@
             <a href="books/create" class="text-orange font-bold d-flex justify-content-end" target="_blank">
                 New Book
             </a>
-            <h6>Recently Added:</h6>
-            <hr>
-        <div class="row">
+            <!-- recently added -->
+            <div class="section-title">Recently Added</div>            
+        <div class="row books-row">
         @foreach ($books as $book)
             @if ($book->is_new() == True)
-                <div class="col-md-2 mt-4">
-                    <span class="badge {{ $book->type['color'] }}">
-                        {{ $book->type['title'] }}
-                    </span>
-                    @if ($book->is_new() == True)
-                        <img src="img/new-book-tag.svg" alt=""style="width:5em;height:auto;z-index:2;position:absolute;left:113px;top:10px;">
-                    @endif
-                    <div class="mb-3">
-                        <div class="view overlay">
-
-                            <img class="z-depth-1-half" src="{{ $book->photo }}" alt="">
-
-                            <a href="{{ $book->path() }}">
-                            <div class="mask flex-center rgba-teal-strong">
-                            <p class="white-text">Read More...</p>
-                            </div>
-                            </a>
-                        </div>
-                    </div>
-                    @include('front.partials.rate-stars')
-                    <a href="/books/{{ $book->id }}">
-                        <h6 class="font-bold font-small">{{ $book->title }}
-                        </h6>
-                        <small>({{ $book->publish_year }})</small>
-                    </a>
-                </div>
+                @include('front.partials.book-card')
             @endif
         @endforeach
-        </div>
-       
-        <h6 class="mt-4">All Books:</h6>
-        <hr>
-        <div class="row">
+        </div>  <!-- end of recently added-->        
+         
+
+        <!-- all books -->
+        <div class="mt-4 section-title">All Books</div>        
+        <div class="row books-row">
             @foreach ($books as $book)
-                <div class="col-md-2 mt-4">
-                    <span class="badge {{ $book->type['color'] }}">
-                        {{ $book->type['title'] }}
-                    </span>                    
-                    <div class="mb-3">
-                        <div class="view overlay">
-                            <img class="z-depth-1-half" src="{{ $book->photo }}" alt="">
-                            <a href="{{ $book->path() }}">
-                            <div class="mask flex-center rgba-teal-strong">
-                            <p class="white-text">Read More...</p>
-                            </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    @include('front.partials.rate-stars')
-
-
-                    <a href="/books/{{ $book->id }}">
-                        <h6 class="font-bold font-small">{{ $book->title }}
-                        </h6>
-                        <small>({{ $book->publish_year }})</small>
-                    </a>
-                </div>                               
-                    
+              @include('front.partials.book-card')     
             @endforeach
-        </div>
-
-
-
+        </div>  <!-- end of all books-->
         <span class="d-flex justify-content-center mt-3">
             {{ $books->links() }}
-        </span>
-
-        
+        </span>        
     </div>
 
 

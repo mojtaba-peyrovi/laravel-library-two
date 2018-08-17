@@ -29,6 +29,9 @@ Route::get('/ebooks', 'bookSearchController@ebooks');
 Route::get('/physical-books', 'bookSearchController@books');
 Route::get('/audio-books', 'bookSearchController@audio');
 
+//book favorite
+Route::post('/books/{book}/favorited','booksController@getFavorite')->name('book-favorite');
+Route::post('/books/{book}/unfavorited','booksController@getUnFavorite')->name('book-unfavorite');
 
 Route::get('/home', 'HomeController@index')->name('home');
 

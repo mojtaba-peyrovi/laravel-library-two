@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Book;
 use App\Author;
 use App\Type;
+use App\Favorite;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\CsvImportRequest;
@@ -90,6 +91,13 @@ class booksController extends Controller
             'desc' => request('desc'),
             'quotes' => request('quotes')
         ]);
+
+        Favorite::create([
+            'user_id' => Auth::user()->id,
+            'book_id' => $book->id,
+            'fav' => 1
+        ]);
+
         flash('<i class="fa fa-comment-o" aria-hidden="true"></i> Book Added!')->success();
 
         return redirect('/books');
@@ -107,9 +115,11 @@ class booksController extends Controller
         $self = Book::find($book)->all();
         $related_books = Book::where('type_id', $book->type_id)->get();
         $final_related = $related_books->diff($self);
+        $favorites_exist = Favorite::where('book_id','=',$book->id)->first();
+        // dd($favorites_exist);
 
         $book_rate = $book->rate;
-        return view('books.show', compact('book','final_related','$book_rate'));
+        return view('books.show', compact('book','final_related','$book_rate','favorites_exist'));
     }
 
     /**
@@ -269,6 +279,44 @@ class booksController extends Controller
 
         return redirect('/books');
 
+        }
+
+        public function getFavorite($book)
+        {   
+            
+            $book_check = Favorite::where('book_id','=',$book)->first();            
+                if (! $book_check == null) {
+                    flash('<i class="fa fa-comment-o" aria-hidden="true"></i> Already Favorited!')->success();
+                    return back();  
+                }else{                
+                    Favorite::create([
+                    'user_id' => Auth::user()->id,
+                    'book_id' => $book,
+                    'fav' => 1
+                    ]);
+                    flash('<i class="fa fa-comment-o" aria-hidden="true"></i>Favorited!')->success();
+                    return back();
+                }            
+                 
+            
+        }
+        public function getUnFavorite($book)
+        {   
+            
+                $book_check = Favorite::where('book_id','=',$book)->first();     
+                // dd($book_check['id']); 
+
+                if (! $book_check == null) {                    
+                    $fav = Favorite::find($book_check['id']);                    
+                    $fav->delete(); 
+                    flash('<i class="fa fa-comment-o" aria-hidden="true"></i>Unfavorited!')->success();
+                    return back();
+                }else{              
+                   
+                    return back();
+                }            
+                 
+            
         }
 
 
