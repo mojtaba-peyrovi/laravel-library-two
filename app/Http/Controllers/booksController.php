@@ -115,7 +115,8 @@ class booksController extends Controller
         $self = Book::find($book)->all();
         $related_books = Book::where('type_id', $book->type_id)->get();
         $final_related = $related_books->diff($self);
-        $favorites_exist = Favorite::where('book_id','=',$book->id)->first();
+        $favorites_exist = Favorite::where('book_id','=',$book->id)->
+                                     where('user_id','=',auth()->user()['id'])->first();
         // dd($favorites_exist);
 
         $book_rate = $book->rate;
@@ -284,7 +285,8 @@ class booksController extends Controller
         public function getFavorite($book)
         {   
             
-            $book_check = Favorite::where('book_id','=',$book)->first();            
+            $book_check = Favorite::where('book_id','=',$book)
+                                    ->where('user_id','=',auth()->user()->id)->first();            
                 if (! $book_check == null) {
                     flash('<i class="fa fa-comment-o" aria-hidden="true"></i> Already Favorited!')->success();
                     return back();  

@@ -29,16 +29,17 @@
   .read-days-ago {
     font-size: 10px;   
     position: relative;
-    margin-right: 50px; 
+    margin-right: 20px; 
     font-weight: 500;
-    color:rgb(102, 102, 102)
-    position: relative;
-    left:20px;
-    top:-40px;
+    color:rgb(102, 102, 102);    
+    left:23px;
+    top:33px;
     z-index: 2;
     background: rgba(255, 255, 255, 0.7);
     padding:3px;
     border-radius: 5px;
+    text-align: center;
+    width: 70%;
   } 
 
 .books-row {
@@ -99,9 +100,10 @@
                 @endforeach
             </div> <!-- end of created by user -->              
             
-
+        @endif 
+        @if(! $has_favorite == null)
             <!-- favorites section -->
-                 <h6 class="section-title">Favorites</h6>                 
+                 <h6 class="section-title">Favorite Books</h6>                 
                  <div class="row books-row">
                  @foreach($books as $book)    
                     @foreach ($book->favorites as $favorite)
@@ -111,46 +113,30 @@
                     @endforeach
                 @endforeach
                 </div>  <!-- end of favorites section -->
+        @endif        
 
                 <!-- last month section -->
                  <h6 class="section-title">Read Last Month</h6>                 
                  <div class="row books-row">
                  @foreach($books as $book)
+
                         @if ($book->read_last_month() == True)
-                           <div class="mt-4 mr-3 ml-3">
-                            <span class="badge {{ $book->type['color'] }}">
-                                {{ $book->type['title'] }}
-                            </span> 
-                            @if ($book->is_new() == True)  
-                              @include('front.partials.new-badge')
-                            @endif 
-                                                       
-                            <div class="mb-3">                                
-                                <div class="view overlay book-overlay">                                 
-                                    <img class="z-depth-1-half book-card-img" src="{{ $book->photo }}" alt="">
-                                    <a href="/books/{{$book->id}}">
-                                        <div class="mask flex-center book-card-mask">
-                                            <p class="">Read More...</p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="read-days-ago">Read {{ \Carbon\Carbon::parse($book->read_date)->diffForHumans() }} 
-                            </div>
-                            <div style="margin-top:-20px;">@include('front.partials.rate-stars')</div>
-                            <a href="/books/{{ $book->id }}">
-                                <div class="row">
-                                    <span class="card-movie-title">{{ str_limit($book->title, $limit = 10, $end = '...') }}</span>        
-                                    <span class="card-movie-year">({{ $book->publish_year }})</span>
-                                </div>                               
-                            </a>
+                        <div>
+                            <div class="read-days-ago">
+                            Read {{ \Carbon\Carbon::parse($book->read_date)->diffForHumans() }}
+                            </div> 
+                            @include('front.partials.book-card') 
                         </div>
+                        
+                            
+                           
                         @endif                    
                 @endforeach
                 </div>  <!-- end of last month section -->
             </div>        
-        @endif      
+             
     </div>
 @endsection
+    
     
 

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Book;
 use App\User;
+use App\Favorite;
 
 class Favorite extends Model
 {
@@ -20,5 +21,6 @@ class Favorite extends Model
     	return $this->belongsTo(Book::class);
     }
 
+    
 
 }

@@ -24,7 +24,7 @@
     margin-top: -12px;
     font-size: 13px;
   }
-  .badge{
+  .index-type-badge{
     z-index: 2;
     position: relative;
     top:150px;
@@ -35,7 +35,7 @@
 </style>
 
 <div class="mt-4 mr-4 ml-4">
-    <span class="badge {{ $book->type['color'] }}">
+    <span class="badge index-type-badge {{ $book->type['color'] }}">
         {{ $book->type['title'] }}
     </span> 
     @if ($book->is_new() == True)  

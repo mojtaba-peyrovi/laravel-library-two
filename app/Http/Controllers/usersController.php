@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Book;
+use App\Favorite;
 class usersController extends Controller
 {
     /**
@@ -48,8 +49,9 @@ class usersController extends Controller
     public function show(User $user)
     {   
 
-        $books = Book::all();      
-        return view('users.show', compact('user','books'));
+        $books = Book::all();    
+        $has_favorite = Favorite::where('user_id','=',auth()->user()->id)->first();  
+        return view('users.show', compact('user','books','has_favorite'));
     }
 
     /**

@@ -10,8 +10,8 @@
       <div class="row">
 
         <!-- Grid column -->
-        <div class="col-md-12 py-5">
-          <div class="mb-5 flex-center">
+        <div class="col-md-12 py-5 text-center">
+          <div class="mb-5">
 
             <!-- Facebook -->
             <a class="fb-ic">
