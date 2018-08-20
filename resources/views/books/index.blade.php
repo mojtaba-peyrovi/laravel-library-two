@@ -28,6 +28,7 @@
 @endsection
 @section('content')
     @include('front.partials.nav')
+    @include('front.partials.login-notice')
     <ol class="breadcrumb blue-grey lighten-5">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item active">Books</li>
@@ -84,8 +85,8 @@
         <!-- all books -->
         <div class="mt-4 section-title">All Books</div>        
         <div class="row books-row">
-            @foreach ($books as $book)
-              @include('front.partials.book-card')     
+            @foreach ($books as $book)            
+                @include('front.partials.book-card')  
             @endforeach
         </div>  <!-- end of all books-->
         <span class="d-flex justify-content-center mt-3">

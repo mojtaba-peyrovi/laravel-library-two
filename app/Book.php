@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Read;
+use App\Quote;
 class Book extends Model
 {
     protected $guarded = [];
@@ -58,5 +60,14 @@ class Book extends Model
      public function favorites()
     {
         return $this->hasMany(Favorite::class);
+    }
+
+    public function reads()
+    {
+        return $this->hasMany(Read::class);
+    }
+    public function quotes()
+    {
+        return $this->hasMany(Quote::class);
     }
 }

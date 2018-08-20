@@ -28,20 +28,48 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
-
+    /*
     /**
      * Create a new controller instance.
-     *
+     * @param Request $request
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('logout');        
+         $this->request = $request;
     }
-    
-
+   
+ 
     public function logout(Request $request) {
       Auth::logout();
       return redirect('/login');
+    }
+      /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        $email = $this->username();
+        $field = filter_var($request->get($email), FILTER_VALIDATE_EMAIL) ? $email : 'username';
+        return [
+            $field => $request->get($email),
+            'password' => $request->password,
+        ];
+    }
+
+     /**
+     * @return string
+     */
+    public function redirectTo()
+    {
+        if ($this->request->has('previous')) {
+            $this->redirectTo = $this->request->get('previous');
+        }
+
+        return $this->redirectTo ?? '/home';
     }
 }

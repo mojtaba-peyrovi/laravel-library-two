@@ -31,11 +31,11 @@
     position: relative;
     margin-right: 20px; 
     font-weight: 500;
-    color:rgb(102, 102, 102);    
+    /*color:rgb(102, 102, 102); */   
     left:23px;
     top:33px;
     z-index: 2;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgb(204, 255, 204);   
     padding:3px;
     border-radius: 5px;
     text-align: center;
@@ -57,6 +57,7 @@
 @endsection
 @section('content')
     @include('front.partials.nav')
+    @include('front.partials.login-notice')
     <ol class="breadcrumb blue-grey lighten-5">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item active">Users</li>
@@ -125,7 +126,10 @@
                             <div class="read-days-ago">
                             Read {{ \Carbon\Carbon::parse($book->read_date)->diffForHumans() }}
                             </div> 
-                            @include('front.partials.book-card') 
+                            <div style="margin-top: -30px;">
+                                @include('front.partials.book-card')   
+                            </div>
+                            
                         </div>
                         
                             

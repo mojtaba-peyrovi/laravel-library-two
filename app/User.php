@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Read;
+use App\Quote;
 
 class User extends Authenticatable
 {
@@ -35,5 +37,14 @@ class User extends Authenticatable
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
+    }
+
+     public function reads()
+    {
+        return $this->hasMany(Read::class);
+    }
+     public function quotes()
+    {
+        return $this->hasMany(Quote::class);
     }
 }

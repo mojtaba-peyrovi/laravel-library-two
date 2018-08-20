@@ -1,3 +1,6 @@
+<style type="text/css">
+
+</style>
 <!--Navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark primary-color">
 
@@ -47,7 +50,7 @@
                     <a class="dropdown-item" href="/authors">All Authors</a>
                     @if (Auth::check())
                         <a class="dropdown-item" href="/authors/create">
-                            <span class="text-warning">
+                            <span class="" style="background-color:yellow;">
                                 <i class="fa fa-pencil"></i>
                                 Add More Authors</span>
                         </a>
@@ -101,13 +104,12 @@
                 </div>
             @else
                 <a href="/register" class="nav-link text-white">Register</a>
-                <a href="{{ Route('login') }}" class="nav-link text-white">
+                <a href="{{ Route('login') . '?previous=' . Request::fullUrl() }}" class="nav-link text-white">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     Login
                 </a>
             @endif
         </div>
     </div>
-
 </nav>
 <!--/.Navbar-->

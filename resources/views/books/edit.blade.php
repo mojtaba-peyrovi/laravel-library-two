@@ -45,15 +45,25 @@
                     </div>
 
                 </div>
-                    <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6">
+                   <div class="form-group">
                       <label for="author">Author: </label>
                       <select class="custom-select" name="author">
                           @foreach ($authors as $author)
                               <option value="{{ $author->id }}">{{ $author->fullName() }}</option>
                           @endforeach
-
                       </select>
-                    </div>
+                   </div>
+                 </div>
+                  <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="read_date">Last Read Date: </label>
+                        <input type="text" class="form-control" name="read_date" id="datepicker" value="{{ $last_read }}">
+                      </div>
+                  </div>                 
+                </div>
+                    
 
                 <div class="form-group">
                   <label for="photo">Photo Link: </label>
@@ -65,6 +75,7 @@
                   <label for="desc">Description: </label>
                   <textarea name="desc" rows="8" cols="80" class="form-control">{{ $book->desc }}</textarea>
                 </div>
+                
                 <button type="submit" name="button" class="btn btn-orange btn-sm">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     Submit
@@ -89,5 +100,12 @@
     </div>
 @endsection
 @section('scripts')
-    
+    <script type="text/javascript">
+        $( function() {
+           $( "#datepicker" ).datepicker({
+                dateFormat: 'yyyy-mm-dd',
+
+            });
+        });
+    </script>
 @endsection

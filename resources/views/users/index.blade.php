@@ -6,6 +6,7 @@
 @section('content')
 
     @include('front.partials.nav')
+    @include('front.partials.login-notice')
     <div class="container mt-4">
         @foreach ($users as $user)
             <h1>

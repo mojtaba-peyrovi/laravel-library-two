@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Book;
 use App\Author;
 use App\Type;
+use App\Read;
+use App\Quote;
 use App\Favorite;
 use Auth;
 use Illuminate\Http\Request;
@@ -112,7 +114,9 @@ class booksController extends Controller
     public function show(Book $book)
     {
 
+
         $self = Book::find($book)->all();
+
         $related_books = Book::where('type_id', $book->type_id)->get();
         $final_related = $related_books->diff($self);
         $favorites_exist = Favorite::where('book_id','=',$book->id)->
@@ -132,8 +136,10 @@ class booksController extends Controller
     public function edit($id)
     {
         $book = Book::find($id);
+        $read = Read::where('book_id','=',$id)->get();
+        $last_read = $read->last()['read_date'];
 
-         return view('books.edit',compact('book','id'));
+         return view('books.edit',compact('book','id','last_read'));
     }
 
     /**
@@ -154,6 +160,12 @@ class booksController extends Controller
         $book->photo = $request->get('photo');
         $book->desc = $request->get('desc');
         $book->save();
+
+        $read = Read::create([
+            'user_id' => auth()->user()->id,
+            'book_id' => $book->id,
+            'read_date' => Carbon::parse(request('read_date'))
+        ]);
 
         flash('<i class="fa fa-comment-o" aria-hidden="true"></i> Changes Saved!')->success();
 
@@ -283,14 +295,14 @@ class booksController extends Controller
         }
 
         public function getFavorite($book)
-        {   
-            
+        {
+
             $book_check = Favorite::where('book_id','=',$book)
-                                    ->where('user_id','=',auth()->user()->id)->first();            
+                                    ->where('user_id','=',auth()->user()->id)->first();
                 if (! $book_check == null) {
                     flash('<i class="fa fa-comment-o" aria-hidden="true"></i> Already Favorited!')->success();
-                    return back();  
-                }else{                
+                    return back();
+                }else{
                     Favorite::create([
                     'user_id' => Auth::user()->id,
                     'book_id' => $book,
@@ -298,27 +310,39 @@ class booksController extends Controller
                     ]);
                     flash('<i class="fa fa-comment-o" aria-hidden="true"></i>Favorited!')->success();
                     return back();
-                }            
-                 
-            
+                }
+
+
         }
         public function getUnFavorite($book)
-        {   
-            
-                $book_check = Favorite::where('book_id','=',$book)->first();     
-                // dd($book_check['id']); 
+        {
 
-                if (! $book_check == null) {                    
-                    $fav = Favorite::find($book_check['id']);                    
-                    $fav->delete(); 
+                $book_check = Favorite::where('book_id','=',$book)
+                                       ->where('user_id','=',auth()->user()->id)->first();
+                // dd($book_check['id']);
+
+                if (! $book_check == null) {
+                    $fav = Favorite::find($book_check['id']);
+                    $fav->delete();
                     flash('<i class="fa fa-comment-o" aria-hidden="true"></i>Unfavorited!')->success();
                     return back();
-                }else{              
-                   
+                }else{
+
                     return back();
-                }            
-                 
-            
+                }
+
+        }
+        public function addRead(Book $book)
+        {
+            // dd($book->id);
+            $read = Read::create([
+            'user_id' => auth()->user()->id,
+            'book_id' => $book->id,
+            'read_date' => Carbon::parse(request('read_date'))
+            ]);
+            flash('<i class="fa fa-comment-o" aria-hidden="true"></i>Date Added!')->success();
+
+            return back();
         }
 
 

@@ -4,6 +4,7 @@
 @endsection
 @section('content')
     @include('front.partials.nav')
+    @include('front.partials.login-notice')
     <ol class="breadcrumb blue-grey lighten-5">
         <li class="breadcrumb-item"><a href="#">Home</a></li>
         <li class="breadcrumb-item"><a href="/authors">Authors</a></li>
@@ -97,24 +98,7 @@
                     <hr>
                     <div class="row">
                         @foreach ($related_books as $book)
-                        <div class="col-md-2 mt-4">
-                            @include('flash::message')
-                            <div class="mb-3">
-
-                                    <div class="view overlay">
-                                        <img class="z-depth-1-half" src="{{ $book->photo }}" alt="">
-                                        <a href="/books/{{ $book->id }}">
-                                        <div class="mask flex-center rgba-teal-strong">
-                                        <p class="white-text">Read More...</p>
-                                        </a>
-                                        </div>
-                                    </div>
-                                    <a href="/books/{{ $book->id }}" class="mt-2">
-                                        {{ $book->title }}
-                                        ( {{ $book->publish_year }})
-                                    </a>
-                            </div>
-                        </div>
+                            @include('front.partials.book-card')
                         @endforeach
                     </div>
                 </div>

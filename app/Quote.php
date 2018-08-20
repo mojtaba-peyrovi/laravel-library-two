@@ -4,9 +4,10 @@ namespace App;
 
 use App\Book;
 use App\User;
+
 use Illuminate\Database\Eloquent\Model;
 
-class Read extends Model
+class Quote extends Model
 {
     protected $guarded=[];
 
@@ -14,7 +15,6 @@ class Read extends Model
     {
     	return $this->belongsTo(Book::class);
     }
-
     public function user()
     {
     	return $this->belongsTo(User::class);

@@ -59,8 +59,7 @@
                 <a href="/types/create" class="text-orange float-right" target="_blank">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                      New Type
-                </a>
-
+                </a>                    
                     <div class="form-group mt-3">
                       <label for="author">Author: </label>
                       <select class="custom-select" name="author">

@@ -35,6 +35,9 @@ Route::post('/books/{book}/unfavorited','booksController@getUnFavorite')->name('
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//add read date
+Route::post('/books/{book}/add-read', 'booksController@addRead')->name('add-read');
+
 // Route::get('/authors', 'AuthorsController@index')->name('authors-index');
 // Route::get('/authors/{author}', 'AuthorsController@show')->name('authors-show');
 // Route::get('/author/create', 'AuthorsController@create')->name('authors-create');

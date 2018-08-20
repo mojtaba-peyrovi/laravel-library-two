@@ -27,7 +27,7 @@
   .index-type-badge{
     z-index: 2;
     position: relative;
-    top:150px;
+    top:175px;
     /*left:86px;*/
     /*width: 100%;*/
   }
@@ -40,7 +40,9 @@
     </span> 
     @if ($book->is_new() == True)  
       @include('front.partials.new-badge')
-    @endif                         
+    @else
+      <div style="width:4em;height:1.5em;;position:relative;top:20px;right:-63px;"></div>
+    @endif                             
     <div class="mb-3">         
         <div class="view overlay book-overlay">          
             <img class="z-depth-1-half book-card-img" src="{{ $book->photo }}" alt="">

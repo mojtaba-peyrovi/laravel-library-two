@@ -104,7 +104,7 @@ class AuthorsController extends Controller
         $author = Author::find($id);
         $author->name = $request->get('name');
         $author->last_name = $request->get('last_name');
-        $author->birthday = $request->get('birthday');
+        $author->birthday = Carbon::parse(request('birthday'));
         $author->birthday_place = $request->get('birthday_place');
         $author->occupation = $request->get('occupation');
         $author->nationality = $request->get('nationality');
