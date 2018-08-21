@@ -15,14 +15,16 @@ class CreateAuthorsTable extends Migration
     {
         Schema::create('authors', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('user_id');
             $table->string('name');
             $table->string('last_name');
             $table->string('photo');
             $table->date('birthday');
-            $table->string('birthday_place');
+            $table->string('birth_city');
+            $table->string('birth_country');
             $table->string('occupation');
             $table->string('nationality');
-            $table->boolean('favorite');
+            $table->unsignedInteger('rate');
             $table->string('wiki');
             $table->text('desc');
             $table->timestamps();

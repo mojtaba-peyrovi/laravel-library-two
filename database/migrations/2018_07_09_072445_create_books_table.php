@@ -25,8 +25,6 @@ class CreateBooksTable extends Migration
             $table->string('photo');
             $table->string('format');
             $table->unsignedInteger('rate');
-            $table->boolean('isFavorite');
-            $table->longText('quotes');
             $table->longText('desc');
             $table->timestamps();
         });

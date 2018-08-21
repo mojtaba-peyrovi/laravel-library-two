@@ -16,7 +16,7 @@
     </ol>
     <div class="container mt-4">
         @include('flash::message')
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-8 offset-md-2">
             <h2>Create a Book</h2>
             <hr>
             <form class="" action="/books" method="post" enctype="multipart/form-data">
@@ -59,7 +59,7 @@
                 <a href="/types/create" class="text-orange float-right" target="_blank">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                      New Type
-                </a>                    
+                </a>
                     <div class="form-group mt-3">
                       <label for="author">Author: </label>
                       <select class="custom-select" name="author">

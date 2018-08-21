@@ -72,7 +72,9 @@ class booksController extends Controller
        if(Input::hasFile('image'))
        {
            $image = $request->file('image');
-           $filename = $image->getClientOriginalName();
+           $title = $request->input('title');
+           $slug = str_slug($title ,'-');
+           $filename = $slug . '-' . Carbon::now()->toDateString() . '.jpg';
            $image_resize = Image::make($image->getRealPath());
            $image_resize->fit(260, 346);
            $image_resize->save(public_path('img/books/' .$filename));
@@ -84,14 +86,12 @@ class booksController extends Controller
             'author_id' => $request->input('author'),
             'type_id' => $request->input('type'),
             'publisher_id' => 1,
-            'isFavorite' => $request->input('favorite'),
             'read_date' => Carbon::parse(request('read_date')),
             'publish_year' => request('publish_year'),
             'photo' => '/img/books/'. $filename,
             'format' => request('format'),
             'rate'=> request('rate'),
-            'desc' => request('desc'),
-            'quotes' => request('quotes')
+            'desc' => request('desc')
         ]);
 
         Favorite::create([
@@ -113,18 +113,17 @@ class booksController extends Controller
      */
     public function show(Book $book)
     {
-
-
         $self = Book::find($book)->all();
-
+        // dd($self);
         $related_books = Book::where('type_id', $book->type_id)->get();
-        $final_related = $related_books->diff($self);
+        // $final_related = $related_books->diff($self);
+        // dd($final_related);
         $favorites_exist = Favorite::where('book_id','=',$book->id)->
                                      where('user_id','=',auth()->user()['id'])->first();
         // dd($favorites_exist);
 
         $book_rate = $book->rate;
-        return view('books.show', compact('book','final_related','$book_rate','favorites_exist'));
+        return view('books.show', compact('book','related_books','$book_rate','favorites_exist'));
     }
 
     /**

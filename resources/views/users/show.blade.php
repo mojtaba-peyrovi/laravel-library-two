@@ -1,15 +1,15 @@
 @extends('layouts.master')
 @section('styles')
 <style type="text/css">
-    .section-title{ 
+    .section-title{
         font-size: 22px;
         text-align: center;
         font-family:'Raleway', sans-serif;
         color: #4d4d4d;
         margin-top: 30px;
-        
 
-} 
+
+}
 .jumbotron {
     background: linear-gradient(#006666, #ffff66);
 }
@@ -17,30 +17,30 @@
     height: 100px;
     width: auto;
 }
- 
+
  .book-card-img,
   .book-overlay{
-    border-radius: 3px 15px 15px 3px;   
+    border-radius: 3px 15px 15px 3px;
     box-shadow: 11px 18px 23px -6px rgba(194,194,194,1);
-  } 
+  }
   .book-card-mask{
     background: rgba(230, 230, 230, 0.5);
-  }    
+  }
   .read-days-ago {
-    font-size: 10px;   
+    font-size: 10px;
     position: relative;
-    margin-right: 20px; 
+    margin-right: 20px;
     font-weight: 500;
-    /*color:rgb(102, 102, 102); */   
+    /*color:rgb(102, 102, 102); */
     left:23px;
     top:33px;
     z-index: 2;
-    background: rgb(204, 255, 204);   
+    background: rgb(204, 255, 204);
     padding:3px;
     border-radius: 5px;
     text-align: center;
     width: 70%;
-  } 
+  }
 
 .books-row {
     background-color: rgb(242, 242, 242);
@@ -78,7 +78,7 @@
         <!--Jumbotron-->
 
         <!-- personal info -->
-        <h6 class="section-title">Personal Info</h6>        
+        <h6 class="section-title">Personal Info</h6>
         <div class="row books-row">
             <div class="col-md-2">
                 <img src="/img/empty-user.jpg" alt="" class="img-thumbnail" style="width:150px;height:150px;">
@@ -94,53 +94,50 @@
         @if ($user->books->count())
 
             <!-- created by user -->
-            <h6 class="section-title">Created by {{ $user->name }}</h6>                       
+            <h6 class="section-title">Created by {{ $user->name }}</h6>
             <div class="row books-row">
                 @foreach ($user->books as $book)
-                    @include('front.partials.book-card')                       
+                    @include('front.partials.book-card')
                 @endforeach
-            </div> <!-- end of created by user -->              
-            
-        @endif 
+            </div> <!-- end of created by user -->
+
+        @endif
         @if(! $has_favorite == null)
             <!-- favorites section -->
-                 <h6 class="section-title">Favorite Books</h6>                 
+                 <h6 class="section-title">Favorite Books</h6>
                  <div class="row books-row">
-                 @foreach($books as $book)    
+                 @foreach($books as $book)
                     @foreach ($book->favorites as $favorite)
-                        @if ($favorite->user_id == auth()->user()->id && $favorite->fav == 1)    
+                        @if ($favorite->user_id == auth()->user()->id && $favorite->fav == 1)
                             @include('front.partials.book-card')
                         @endif
                     @endforeach
                 @endforeach
                 </div>  <!-- end of favorites section -->
-        @endif        
+        @endif
 
                 <!-- last month section -->
-                 <h6 class="section-title">Read Last Month</h6>                 
+                 <h6 class="section-title">Read Last Month</h6>
                  <div class="row books-row">
                  @foreach($books as $book)
 
-                        @if ($book->read_last_month() == True)
+                        @if ($book->read_last_month() === True)
                         <div>
                             <div class="read-days-ago">
                             Read {{ \Carbon\Carbon::parse($book->read_date)->diffForHumans() }}
-                            </div> 
-                            <div style="margin-top: -30px;">
-                                @include('front.partials.book-card')   
                             </div>
-                            
+                            <div style="margin-top: -30px;">
+                                @include('front.partials.book-card')
+                            </div>
+
                         </div>
-                        
-                            
-                           
-                        @endif                    
+
+
+
+                        @endif
                 @endforeach
                 </div>  <!-- end of last month section -->
-            </div>        
-             
+            </div>
+
     </div>
 @endsection
-    
-    
-

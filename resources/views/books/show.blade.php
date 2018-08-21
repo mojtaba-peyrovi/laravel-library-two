@@ -26,10 +26,11 @@
         padding:10px 20px;
         border-radius: 5px;
         text-align: center;
-
+        font-family: 'Arial',serif;
     }
 
-    #popup {
+    #fav-popup,
+    #unfav-popup {
         font-size: 12px;
         font-weight: 500;
         background:rgb(242, 242, 242);
@@ -39,8 +40,25 @@
         border-radius: 5px;
         text-align: center;
     }
-
-
+    .book-show-title #title{
+        font-family: 'Lobster', cursive;
+        font-size: 35px;
+    }
+    .book-show-title #year {
+        font-family: 'Noto Serif', serif;
+        font-size: 20px;
+    }
+    .book-show-desc {
+        font-family: 'Unna', serif;
+        font-size: 16px;
+        margin-top: 15px;
+    }
+    .book-show-desc::first-letter{
+        font-size: 200%;
+    }
+    .book-show-subtitle {
+        font-family: 'Oswald', sans-serif;
+    }
 </style>
 
 
@@ -66,13 +84,16 @@
                         @if(! $favorites_exist == null)
                             <span class="badge badge-success fav-badge">Favorited</span>
                         @endif
-                   @endif
+                   @endif <!-- enf of favorite badge -->
+
+               <!-- book image -->
                 <div class="photo-container">
                      @include('flash::message')
                     <img src="{{ $book->photo }}" alt="" class="book-img">
                 </div>
-                <div class="book-history">
+                <!-- end of book image -->
 
+                <div class="book-history">
                     <!-- read dates -->
                     @if(Auth::check())
                         <div class="font-bold mb-2 mt-3 read-add">Read Dates: </div>
@@ -102,10 +123,10 @@
 
             <div class="book-show-right col-md-8 offset-md-1 bg-grey-lighter p-4">
                 <div class="book-show-header">
-                    <h1>
+                    <h1 class="book-show-title">
                     @include('front.partials.format-badges')
-                    {{ $book->title }}
-                    <span>
+                    <span id="title">{{ $book->title }}</span>
+                    <span id="year">
                         ({{ $book->publish_year }})
                     </span>
                     </h1>
@@ -114,7 +135,7 @@
                         <span class="badge type-badge {{ $book->type['color'] }} mt-3">
                         {{ $book->type['title'] }}
                         </span>
-                    <p class="mt-2">
+                    <p class="mt-2 book-show-subtitle">
                         by <a href="/authors/{{ $book->author['id'] }}">
                         {{ $book->author['name'] }}
                         {{ $book->author['last_name'] }},
@@ -164,7 +185,7 @@
                                 @if(! $favorites_exist == null)
                                     @include('front.partials.unfav-button')
                                 @else
-                                    <div id="popup">
+                                    <div id="fav-popup">
                                         Favorite this book!
                                     </div>
                                     @include('front.partials.fav-button')
@@ -187,11 +208,14 @@
                  <!-- about section -->
                     <div>
                         <hr style="margin-top:-2px;">
-                        <span class="font-bold mb-2 about-book-title mt-3">About the book</span>
-                        <p class="mt-3">{{ $book->desc }}</p>
-                    </div>  <!-- end of about section-->
+                </div> <!-- end of header-->
 
-                     <!-- quotes section -->
+                    <!-- about book section -->
+                    <span class="font-bold mb-2 about-book-title mt-3">About the book</span>
+                    <p class="book-show-desc">{{ $book->desc }}</p>
+
+                    <!-- end of about book section -->
+                      <!-- quotes section -->
                     <div class="mt-4">
                         <span class="font-bold mb-2 about-book-title">Quotes</span>
 
@@ -200,21 +224,21 @@
 
                          </p>
 
-                    </div>
-                    <!-- end of quotes section -->
+                    </div><!-- end of quotes section -->
+
+            </div> <!-- end of right section-->
 
 
-            </div>
 
         </div> <!-- end of first row -->
 
         <!-- related books -->
         <div class="row">
-            @if ($final_related->count())
-                <div class="related-books col-md-12 bg-grey-lighter mt-4 p-3">
+            @if ($related_books->count())
+                <div class="related-books books-row">
                     <h2>Related Books:</h2>
                     <hr>
-                     @foreach ($final_related as $book)
+                     @foreach ($related_books as $book)
                         @include('front.partials.book-card')
                      @endforeach
                  </div>
@@ -236,7 +260,7 @@
     </script>
     <script type="text/javascript">
         var ref = $('.fav-btn')
-        var popup = $('#popup');
+        var popup = $('#fav-popup');
         popup.hide();
         ref.hover(function(){
             popup.show();
@@ -257,4 +281,5 @@
             popup.hide();
         });
     </script>
+
 @endsection

@@ -9,6 +9,7 @@
     <!-- google font -->
     <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Courgette|Lobster|Noto+Serif|Oswald|Poller+One|Unna" rel="stylesheet">
     <!-- favicon -->
     <link rel="icon" href="/img/favicon.png">
     <!-- Bootstrap -->
@@ -22,11 +23,11 @@
     <!-- Material Design Bootstrap (MDB)-->
     <link href="/css/mdb.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet" >
-    
+
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    
+
     <script>
       $( function() {
         $( "#datepicker" ).datepicker();
@@ -40,7 +41,7 @@
 
       @yield('content')
 
-      
+
       <!-- JQuery -->
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
@@ -56,7 +57,7 @@
       </script>
       @yield('script')
 
-      @include('front.partials.footer')  
+      @include('front.partials.footer')
 
   </body>
 </html>

@@ -31,6 +31,21 @@ class Author extends Model
         $age = Carbon::now()->diffInYears($start_time);
         return $age;
     }
+    public function is_new()
+    {
+        $now = Carbon::now();
+        $days_ago = $now->diffInDays($this->created_at);
+        if ($days_ago <= 7) {
+            return True;
+        }else {
+            return False;
+        }
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
 
 }

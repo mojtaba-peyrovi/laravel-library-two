@@ -32,7 +32,9 @@ Route::get('/audio-books', 'bookSearchController@audio');
 //book favorite
 Route::post('/books/{book}/favorited','booksController@getFavorite')->name('book-favorite');
 Route::post('/books/{book}/unfavorited','booksController@getUnFavorite')->name('book-unfavorite');
-
+//author favorite
+Route::post('/authors/{author}/favorited','AuthorsController@getFavorite')->name('author-favorite');
+Route::post('/authors/{author}/unfavorited','AuthorsController@getUnFavorite')->name('author-unfavorite');
 Route::get('/home', 'HomeController@index')->name('home');
 
 //add read date

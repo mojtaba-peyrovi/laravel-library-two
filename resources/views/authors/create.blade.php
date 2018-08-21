@@ -15,7 +15,7 @@
         <li class="breadcrumb-item active">Create</li>
     </ol>
     <div class="container mt-4">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-8 offset-md-2">
             <h2>Create an Author</h2>
             <hr>
             <form class="" action="/authors" method="post" enctype="multipart/form-data">
@@ -37,14 +37,14 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                          <label for="birthday">Birthday: </label>
-                          <input type="text" class="form-control" name="birthday" id="datepicker">
+                          <label for="birth_country">Birth Country: </label>
+                          <input type="text" class="form-control" name="birth_country">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                          <label for="birthday_place">Birth Place: </label>
-                          <input type="text" class="form-control" name="birthday_place">
+                          <label for="birth_city">Birth City: </label>
+                          <input type="text" class="form-control" name="birth_city">
                         </div>
                     </div>
                 </div>
@@ -63,13 +63,31 @@
                     </div>
                 </div>
 
-
-                <div class="form-check mb-3 mt-3">
-                    <input type="hidden" name="favorite" value="0">
-                    <input type="checkbox" class="form-check-input" name="favorite" value="1">
-                   {{-- <input type="checkbox" class="form-check-input" name="favorite" value="true"> --}}
-                   <label class="form-check-label" for="favorite">Make him/her favorite</label>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="birthday">Birthday: </label>
+                          <input type="text" class="form-control" name="birthday" id="datepicker">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="rate">Rate him/her:</label>
+                          <select class="form-control" id="rate" name="rate">
+                              @for ($i=0; $i < 6; $i++)
+                                  <option value="{{ $i}}">{{ $i }}</option>
+                              @endfor
+                          </select>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check mb-3 mt-3">
+                            <input type="hidden" name="favorite" value="0">
+                            <input type="checkbox" class="form-check-input" name="favorite" value="1">
+                           {{-- <input type="checkbox" class="form-check-input" name="favorite" value="true"> --}}
+                           <label class="form-check-label" for="favorite">Make him/her favorite</label>
+                        </div>
+                    </div>
                 </div>
+
 
                 <div class="form-group">
                   <label for="image">Photo:</label>
