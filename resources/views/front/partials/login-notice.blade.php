@@ -10,8 +10,8 @@
 @if(! Auth::check())
 <nav class="navbar navbar-expand-lg">
     <div class="lead">
-        You are not logged in yet. if you want to enjoy full website functionality, please login or register as a new user!
+        You are not logged in yet. if you want to enjoy full website functionality, please login or register as a new user, thank you!
 
-    </div>  
+    </div>
 </nav>
 @endif

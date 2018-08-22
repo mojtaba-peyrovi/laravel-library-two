@@ -109,10 +109,6 @@
                   <textarea name="desc" rows="8" cols="80" class="form-control"></textarea>
                 </div>
 
-                <div class="form-group mt-4">
-                  <label for="quotes">Quotes: </label>
-                  <textarea name="quotes" rows="8" cols="80" class="form-control"></textarea>
-                </div>
                 <button type="submit" name="button" class="btn btn-indigo btn-sm">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                     Add

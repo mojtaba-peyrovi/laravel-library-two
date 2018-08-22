@@ -20,12 +20,12 @@ class CreateBooksTable extends Migration
             $table->unsignedInteger('publisher_id');
             $table->unsignedInteger('type_id');
             $table->year('publish_year');
-            $table->date('read_date');
+            $table->date('read_date')->nullable();
             $table->string('title');
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->string('format');
-            $table->unsignedInteger('rate');
-            $table->longText('desc');
+            $table->unsignedInteger('rate')->nullable();
+            $table->longText('desc')->nullable();
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e8d65fdb92d3fdee09e58e0f9c42852b",
+    "content-hash": "7703b97b91dace2d3e3f0c118e92473b",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1745,6 +1745,47 @@
                 "uuid"
             ],
             "time": "2018-01-20T00:28:24+00:00"
+        },
+        {
+            "name": "scriptotek/google-books",
+            "version": "v0.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/scriptotek/php-google-books.git",
+                "reference": "657a581516240cc1d40977ba5f1d1450f64322ca"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/scriptotek/php-google-books/zipball/657a581516240cc1d40977ba5f1d1450f64322ca",
+                "reference": "657a581516240cc1d40977ba5f1d1450f64322ca",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.2"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.5",
+                "phpspec/phpspec": "~2.0 | ~3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Scriptotek\\GoogleBooks\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "ISC"
+            ],
+            "authors": [
+                {
+                    "name": "Dan Michael O. Heggø",
+                    "email": "danmichaelo@gmail.com"
+                }
+            ],
+            "description": "Package for interacting with the Google Books API",
+            "homepage": "http://github.com/scriptotek/google-books",
+            "time": "2018-02-03T15:50:10+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

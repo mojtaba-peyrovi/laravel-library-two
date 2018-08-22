@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use authorFavorite;
 class Author extends Model
 {
     protected $guarded = [];
@@ -45,6 +46,10 @@ class Author extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function authorFavorites()
+    {
+        return $this->hasMany(authorFavorite::class);
     }
 
 

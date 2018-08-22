@@ -39,7 +39,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //add read date
 Route::post('/books/{book}/add-read', 'booksController@addRead')->name('add-read');
-
+//add quote
+Route::post('/books/{book}/add-quote', 'booksController@addQuote')->name('add-quote');
 // Route::get('/authors', 'AuthorsController@index')->name('authors-index');
 // Route::get('/authors/{author}', 'AuthorsController@show')->name('authors-show');
 // Route::get('/author/create', 'AuthorsController@create')->name('authors-create');

@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Book;
 use App\Favorite;
+use App\Author;
+use App\authorFavorite;
+
 class usersController extends Controller
 {
     /**
@@ -47,11 +50,14 @@ class usersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
-    {   
+    {
 
-        $books = Book::all();    
-        $has_favorite = Favorite::where('user_id','=',auth()->user()->id)->first();  
-        return view('users.show', compact('user','books','has_favorite'));
+        $books = Book::all();
+        $authorFavorites = Author::all();
+        $has_favorite_book = Favorite::where('user_id','=',auth()->user()->id)->first();
+        $has_favorite_author = authorFavorite::where('user_id','=',auth()->user()->id)->first();
+        // dd($has_favorite_author);
+        return view('users.show', compact('user','books','authorFavorites','has_favorite_book','has_favorite_author'));
     }
 
     /**
@@ -60,9 +66,9 @@ class usersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('users.edit',compact('user'));
     }
 
     /**

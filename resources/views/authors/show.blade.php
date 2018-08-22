@@ -1,7 +1,8 @@
 @extends('layouts.master')
 @section('styles')
     <style media="screen">
-    .fav-badge {
+    .fav-badge,
+    .unfav-badge {
         z-index: 30;
         position: absolute;
         top: 320px;
@@ -12,7 +13,8 @@
         position: relative;
     }
     .author-show-right,
-    .author-show-left{
+    .author-show-left,
+    .author-books{
          border-radius: 6px;
          box-shadow: -11px 19px 38px -15px rgba(122,116,122,0.75);
     }
@@ -39,7 +41,8 @@
         font-weight: lighter;
         font-size: 13px;
     }
-    #fav-popup
+    #fav-popup,
+    #unfav-popup
    {
         font-size: 12px;
         font-weight: 500;
@@ -137,6 +140,9 @@
                         <!-- favorite button-->
                         @if(Auth::check())
                             @if(! $favorites_exist == null)
+                                <div id="unfav-popup">
+                                    Unfavorite this author!
+                                </div>
                                 @include('front.partials.author-unfav-button')
                             @else
                                 <div id="fav-popup">
@@ -166,8 +172,8 @@
         </div> <!-- end of first row -->
         <div class="row">
             @if ($author->books->count())
-                <div class="col-md-10 bg-grey-lighter mt-4">
-                    <h2>{{ $author->name }}'s Books:</h2>
+                <div class="col-md-12 bg-grey-lighter mt-4 author-books p-3">
+                    <span class="about-author-title">{{ $author->name }}'s Books:</span>
                     <hr>
                     <div class="row">
                         @foreach ($related_books as $book)
@@ -189,27 +195,5 @@
     <script>
         $('div.alert').not('.alert-important').delay(1500).fadeOut(550);
     </script>
-    <script type="text/javascript">
-        var ref = $('.fav-btn')
-        var popup = $('#fav-popup');
-        popup.hide();
-        ref.hover(function(){
-            popup.show();
-            var popper = new Popper(ref,popup,{
-                placement: 'top',
-                modifiers: {
-                    flip: {
-                        behavior: ['left','right','top','bottom']
-                    }
-                },
-                offset: {
-                    enabled: true,
-                    offset: '0,10'
-                }
-            });
-        });
-        ref.mouseleave(function(event) {
-            popup.hide();
-        });
-    </script>
+    <script src="/js/popups.js"></script>
 @endsection

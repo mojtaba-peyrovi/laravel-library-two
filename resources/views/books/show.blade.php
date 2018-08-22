@@ -27,6 +27,7 @@
         border-radius: 5px;
         text-align: center;
         font-family: 'Arial',serif;
+
     }
 
     #fav-popup,
@@ -58,6 +59,23 @@
     }
     .book-show-subtitle {
         font-family: 'Oswald', sans-serif;
+    }
+    .read-card {
+
+    }
+    .read-card form{
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 10px 5px;
+
+    }
+    .read-card form:first-child {
+        margin-bottom: 1px;
+    }
+    .book-history ul{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 </style>
 
@@ -96,19 +114,29 @@
                 <div class="book-history">
                     <!-- read dates -->
                     @if(Auth::check())
-                        <div class="font-bold mb-2 mt-3 read-add">Read Dates: </div>
+
                         <ul>
+                            <li class="mt-4 about-book-title" style="margin-left: -40px;">
+                                Read Dates
+                            </li>
                             @foreach($book->reads as $read)
                                 @if ($read->user_id == Auth::user()['id'])
-                                    <li>{{ $read->read_date }}</li>
+                                    <li class="card read-card mt-2" style="margin-left: -40px;">
+                                        <form class="" action="" method="post">
+                                            {{ $read->read_date }}
+                                            <button type="submit" name="button">
+                                                <i class="fa fa-times-circle" aria-hidden="true" style="margin-top:5px; margin-bottom:3px;"></i>
+                                            </button>
+                                        </form>
+                                    </li>
                                 @endif
                             @endforeach
-                            <li>
+                            <li style="margin-left:-20px;">
                                 <!-- add read form -->
                                 <form class="form-inline" method="post" action="{{ route('add-read', $book->id) }}">
                                     {{ csrf_field() }}
-                                     <div class="row">
-                                          <input type="text" class="form-control read-add" name="read_date" id="datepicker" placeholder="New Read Date" style="width: 70%;">
+                                     <div class="row mt-2">
+                                          <input type="text" class="form-control read-add" name="read_date" id="datepicker" placeholder="New Read Date">
                                           <button type="submit" class="btn btn-success" style="padding:8px;margin:1px;">
                                             <i class="fa fa-check" aria-hidden="true"></i>
                                           </button>
@@ -211,20 +239,26 @@
                 </div> <!-- end of header-->
 
                     <!-- about book section -->
-                    <span class="font-bold mb-2 about-book-title mt-3">About the book</span>
+                    <span class="mb-2 about-book-title mt-3">About the book</span>
                     <p class="book-show-desc">{{ $book->desc }}</p>
 
                     <!-- end of about book section -->
-                      <!-- quotes section -->
-                    <div class="mt-4">
-                        <span class="font-bold mb-2 about-book-title">Quotes</span>
+                @if (Auth::check())
+                    <!-- quotes section -->
+                    <hr class="mt-2 mb-2">
+                      <div class="mt-4">
+                          <span class="mb-2 about-book-title">
+                              {{ Auth::user()['name'] }}'s Favorite Quotes
+                          </span>
+                          @foreach ($book->quotes as $text)
+                              @if ($text->user->id === Auth::user()['id'])
+                                  @include('front.partials.blockquotes')
+                              @endif
+                          @endforeach
+                          @include('front.partials.add-quote-form')
+                      </div><!-- end of quotes section -->
+                @endif
 
-                         <p>
-
-
-                         </p>
-
-                    </div><!-- end of quotes section -->
 
             </div> <!-- end of right section-->
 
@@ -232,17 +266,19 @@
 
         </div> <!-- end of first row -->
 
-        <!-- related books -->
+
         <div class="row">
             @if ($related_books->count())
-                <div class="related-books books-row">
-                    <h2>Related Books:</h2>
+                <div class="col-md-12 bg-grey-lighter related-books mt-4 p-3">
+                    <span class="about-book-title">Related Books</span>
                     <hr>
-                     @foreach ($related_books as $book)
-                        @include('front.partials.book-card')
-                     @endforeach
-                 </div>
-              @endif  <!-- end of related books -->
+                    <div class="row">
+                        @foreach ($related_books as $book)
+                            @include('front.partials.book-card')
+                        @endforeach
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 

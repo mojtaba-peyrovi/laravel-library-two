@@ -34,7 +34,7 @@
 
 </style>
 
-<div class="mt-4 mr-4 ml-4">
+<div class="mr-4 ml-4" style="margin-top:-30px;">
     <span class="badge index-type-badge {{ $book->type['color'] }}">
         {{ $book->type['title'] }}
     </span>

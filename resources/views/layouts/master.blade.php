@@ -9,7 +9,7 @@
     <!-- google font -->
     <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Courgette|Lobster|Noto+Serif|Oswald|Poller+One|Unna" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Courgette|Lobster|Noto+Serif|Oswald|Poller+One|Unna|Roboto:300,400" rel="stylesheet">
     <!-- favicon -->
     <link rel="icon" href="/img/favicon.png">
     <!-- Bootstrap -->

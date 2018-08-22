@@ -17,7 +17,9 @@ class CreateQuotesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('book_id');
-            $table->string('quote');
+            $table->text('quote');
+            $table->string('footer')->nullable();
+            $table->string('cite')->nullable();
             $table->timestamps();
         });
     }

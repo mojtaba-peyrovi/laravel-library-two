@@ -49,6 +49,10 @@
     box-shadow: -11px 19px 38px -18px rgba(122,116,122,0.75);
 }
 
+.edit-btn {
+    font-size: 12px;
+}
+
 
 </style>
 @endsection
@@ -78,10 +82,16 @@
         <!--Jumbotron-->
 
         <!-- personal info -->
-        <h6 class="section-title">Personal Info</h6>
-        <div class="row books-row">
+        <div class="section-title">
+            Personal Info
+        </div>
+        <div class="row books-row p-2">
             <div class="col-md-2">
                 <img src="/img/empty-user.jpg" alt="" class="img-thumbnail" style="width:150px;height:150px;">
+                <a href="{{ $user->id }}/edit" class="btn btn-outline-success btn-sm">
+                    <i class="fa fa-pencil text-center"></i>
+                    Edit Profile
+                </a>
             </div>
             <div class="col-md-9">
                 <strong>Name: </strong>
@@ -102,8 +112,8 @@
             </div> <!-- end of created by user -->
 
         @endif
-        @if(! $has_favorite == null)
-            <!-- favorites section -->
+        @if(! $has_favorite_book == null)
+            <!-- favorite books section -->
                  <h6 class="section-title">Favorite Books</h6>
                  <div class="row books-row">
                  @foreach($books as $book)
@@ -113,7 +123,23 @@
                         @endif
                     @endforeach
                 @endforeach
-                </div>  <!-- end of favorites section -->
+            </div>  <!-- end of favorite books section -->
+        @endif
+
+        @if(! $has_favorite_author == null)
+            {{-- {{ $has_favorite_author }}
+            @foreach ($authorFavorites as $author)
+                @include('front.partials.author-card')
+            @endforeach --}}
+            <!-- favorite author section -->
+                 <h6 class="section-title">Favorite Authors</h6>
+                 <div class="row books-row">
+                 @foreach ($authorFavorites as $author)
+                        @if ($favorite->user_id == auth()->user()->id && $favorite->fav == 1)
+                            @include('front.partials.author-card')
+                        @endif
+                @endforeach
+            </div>  <!-- end of favorite authors section -->
         @endif
 
                 <!-- last month section -->
@@ -123,13 +149,12 @@
 
                         @if ($book->read_last_month() === True)
                         <div>
-                            <div class="read-days-ago">
+                            {{-- <div class="read-days-ago">
                             Read {{ \Carbon\Carbon::parse($book->read_date)->diffForHumans() }}
-                            </div>
+                            </div> --}}
                             <div style="margin-top: -30px;">
                                 @include('front.partials.book-card')
                             </div>
-
                         </div>
 
 

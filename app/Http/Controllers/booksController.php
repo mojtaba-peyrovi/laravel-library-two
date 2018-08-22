@@ -113,6 +113,7 @@ class booksController extends Controller
      */
     public function show(Book $book)
     {
+
         $self = Book::find($book)->all();
         // dd($self);
         $related_books = Book::where('type_id', $book->type_id)->get();
@@ -120,7 +121,6 @@ class booksController extends Controller
         // dd($final_related);
         $favorites_exist = Favorite::where('book_id','=',$book->id)->
                                      where('user_id','=',auth()->user()['id'])->first();
-        // dd($favorites_exist);
 
         $book_rate = $book->rate;
         return view('books.show', compact('book','related_books','$book_rate','favorites_exist'));
@@ -340,6 +340,20 @@ class booksController extends Controller
             'read_date' => Carbon::parse(request('read_date'))
             ]);
             flash('<i class="fa fa-comment-o" aria-hidden="true"></i>Date Added!')->success();
+
+            return back();
+        }
+
+        public function addQuote(Book $book,Request $request)
+        {
+            $quote  = Quote::create([
+                'user_id' => auth()->user()->id,
+                'book_id' => $book->id,
+                'quote' => $request->input('quote'),
+                'footer' => $request->input('footer'),
+                'cite' => $request->input('cite')
+            ]);
+            flash('<i class="fa fa-comment-o" aria-hidden="true"></i>Quote Added!')->success();
 
             return back();
         }
